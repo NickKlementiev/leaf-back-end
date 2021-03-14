@@ -1,0 +1,18 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.31"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.11",
+    "prettier": "^2.2.1",
+    "ts-node-dev": "^1.1.6"
+  },
+  "repository": "https://github.com/NickKlementiev/leaf-back-end",
+  "author": "NickKlementiev <nklementiev@hotmail.com>"
+}
