@@ -1,6 +1,9 @@
 import { Router } from 'express';
+import { UserController } from './controllers/UserController';
 
 const router = Router();
+
+const userController = new UserController();
 
 router.get('/users', (request, response) => {
     return response.json({
@@ -8,10 +11,6 @@ router.get('/users', (request, response) => {
     });
 });
 
-router.post('/users', (request, response) => {
-    const data = request.body;
-
-    return response.json(data);
-});
+router.post('/users', userController.create);
 
 export { router };
