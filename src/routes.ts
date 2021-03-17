@@ -5,12 +5,9 @@ const router = Router();
 
 const userController = new UserController();
 
-router.get('/users', (request, response) => {
-    return response.json({
-        message: 'Hello, world!',
-    });
-});
-
+router.get('/users', userController.show);
 router.post('/users', userController.create);
+router.put('/users/:id', userController.update);
+router.delete('/users/:id', userController.delete);
 
 export { router };
