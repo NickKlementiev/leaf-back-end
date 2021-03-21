@@ -14,7 +14,7 @@ export class CreateUsers1615743962911 implements MigrationInterface {
                     {
                         name: 'username',
                         type: 'varchar',
-                        isPrimary: true
+                        isPrimary: true,
                     },
                     {
                         name: 'name',
@@ -35,6 +35,6 @@ export class CreateUsers1615743962911 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("users");
+        await queryRunner.dropTable('users');
     }
 }

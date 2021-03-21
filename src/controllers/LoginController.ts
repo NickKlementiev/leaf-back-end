@@ -27,20 +27,20 @@ class LoginController {
         }
 
         return response.status(201).json({
-            message: "Authentication succesful!",
+            message: 'Authentication succesful!',
         });
     }
 
     async logout(request: Request, response: Response) {
         if (!request.session['name']) {
             return response.status(401).json({
-                error: "Already logged out!"
+                error: 'Already logged out!',
             });
         }
 
         request.session.destroy(() => {
             return response.status(200).json({
-                message: "Logout succesful!"
+                message: 'Logout succesful!',
             });
         });
     }
@@ -48,18 +48,17 @@ class LoginController {
     async login(request: Request, response: Response) {
         if (!request.session['username']) {
             return response.status(401).json({
-                error: "Login failed!"
+                error: 'Login failed!',
             });
         }
 
         request.session.reload(() => {
-            console.log("Session reloaded!");
+            console.log('Session reloaded!');
         });
 
-        return response.status(200)
-            .json({
-                message: "Welcome, " + request.session['name'] + "!"
-            });
+        return response.status(200).json({
+            message: 'Welcome, ' + request.session['name'] + '!',
+        });
     }
 }
 

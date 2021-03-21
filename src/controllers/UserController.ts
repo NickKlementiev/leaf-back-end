@@ -66,12 +66,15 @@ class UserController {
 
         if (sameUser) {
             return response.status(400).json({
-                message: 'Username already taken!'
+                message: 'Username already taken!',
             });
         }
 
-        const sameData = await usersRepository.findOne({ username, name, password });
-
+        const sameData = await usersRepository.findOne({
+            username,
+            name,
+            password,
+        });
 
         if (sameData) {
             return response.status(400).json({
