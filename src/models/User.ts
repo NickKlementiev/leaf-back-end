@@ -6,6 +6,9 @@ class User {
     @PrimaryColumn()
     readonly id: string;
 
+    @PrimaryColumn()
+    username: string;
+
     @Column()
     name: string;
 
