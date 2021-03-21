@@ -4,12 +4,12 @@ import { User } from '../models/User';
 
 class UserController {
     async create(request: Request, response: Response) {
-        const { name, password } = request.body;
+        const { username, name, password } = request.body;
 
         const usersRepository = getRepository(User);
 
         const userAlreadyExists = await usersRepository.findOne({
-            name,
+            username,
         });
 
         if (userAlreadyExists) {
@@ -19,6 +19,7 @@ class UserController {
         }
 
         const user = usersRepository.create({
+            username,
             name,
             password,
         });
@@ -42,7 +43,7 @@ class UserController {
         const usersRepository = getRepository(User);
 
         try {
-            await usersRepository.delete(id);
+            await usersRepository.delete({ id });
         } catch (error) {
             console.log(error);
             return response.status(400).json({
@@ -57,11 +58,23 @@ class UserController {
 
     async update(request: Request, response: Response) {
         const { id } = request.params;
-        const { name, password } = request.body;
+        const { username, name, password } = request.body;
 
         const usersRepository = getRepository(User);
 
-        const sameData = await usersRepository.findOne({ name, password });
+        const sameUser = await usersRepository.findOne({ username });
+
+        if (sameUser) {
+            return response.status(400).json({
+                message: 'Username already taken!',
+            });
+        }
+
+        const sameData = await usersRepository.findOne({
+            username,
+            name,
+            password,
+        });
 
         if (sameData) {
             return response.status(400).json({
@@ -70,7 +83,7 @@ class UserController {
         }
 
         try {
-            await usersRepository.update(id, { name, password });
+            await usersRepository.update({ id }, { username, name, password });
         } catch (error) {
             console.log(error);
             return response.status(400).json({
