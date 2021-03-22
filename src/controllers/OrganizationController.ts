@@ -33,22 +33,22 @@ class OrganizationController {
 
         response.status(200).json(all);
     }
-    
+
     async update(request: Request, response: Response) {
         const oldId = request.params['id'];
 
-        const {id, name} = request.body;
+        const { id, name } = request.body;
 
         const orgsRepository = getRepository(Organization);
 
-        const sameID = await orgsRepository.findOne({id});
+        const sameID = await orgsRepository.findOne({ id });
 
         if (oldId != id && sameID) {
             return response.status(400).json({
-                error: "An organization with the same ID already exists!"
+                error: 'An organization with the same ID already exists!',
             });
         }
-        
+
         try {
             await orgsRepository.update(oldId, { id, name });
         } catch (error) {
@@ -58,13 +58,13 @@ class OrganizationController {
             });
         }
 
-        const updated = await orgsRepository.findOne({id});
+        const updated = await orgsRepository.findOne({ id });
 
         return response.status(200).json(updated);
     }
 
     async delete(request: Request, response: Response) {
-        const {id} = request.params;
+        const { id } = request.params;
 
         const orgsRepository = getRepository(Organization);
 
@@ -78,7 +78,7 @@ class OrganizationController {
         }
 
         return response.status(200).json({
-            message: "Organization deleted succesfully"
+            message: 'Organization deleted succesfully',
         });
     }
 }

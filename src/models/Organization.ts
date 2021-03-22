@@ -1,4 +1,4 @@
-import {Column, CreateDateColumn, Entity, PrimaryColumn} from "typeorm";
+import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity('organizations')
 class Organization {
@@ -12,4 +12,4 @@ class Organization {
     created_at: Date;
 }
 
-export {Organization}
+export { Organization };
