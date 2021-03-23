@@ -6,7 +6,7 @@ class MessageController {
     async send(request: Request, response: Response) {
         if (!request.session['userId']) {
             return response.status(400).json({
-                error: "Can't send a message without logged session!"
+                error: "Can't send a message without logged session!",
             });
         }
 
@@ -40,7 +40,7 @@ class MessageController {
     async showChat(request: Request, response: Response) {
         if (!request.session['userId']) {
             return response.status(400).json({
-                error: "Can't see chat without logged session!"
+                error: "Can't see chat without logged session!",
             });
         }
 

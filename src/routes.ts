@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { LoginController } from './controllers/LoginController';
-import {MessageController} from './controllers/MessageController';
+import { MessageController } from './controllers/MessageController';
 import { OrganizationController } from './controllers/OrganizationController';
 import { UserController } from './controllers/UserController';
 
