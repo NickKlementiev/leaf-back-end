@@ -12,7 +12,7 @@ export class CreateUsers1616505910666 implements MigrationInterface {
                         isPrimary: true,
                     },
                     {
-                        name: 'orgid',
+                        name: 'orgId',
                         type: 'varchar',
                         isNullable: false,
                     },
@@ -30,17 +30,17 @@ export class CreateUsers1616505910666 implements MigrationInterface {
                         type: 'varchar',
                     },
                     {
-                        name: 'created_at',
+                        name: 'createdAt',
                         type: 'timestamp',
                         default: 'now()',
                     },
                 ],
                 foreignKeys: [
                     {
-                        name: 'FKOrg',
+                        name: 'fkOrg',
                         referencedTableName: 'organizations',
                         referencedColumnNames: ['id'],
-                        columnNames: ['orgid'],
+                        columnNames: ['orgId'],
                     },
                 ],
             })

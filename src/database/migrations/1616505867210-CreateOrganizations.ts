@@ -16,7 +16,7 @@ export class CreateOrganizations1616505867210 implements MigrationInterface {
                         type: 'varchar',
                     },
                     {
-                        name: 'created_at',
+                        name: 'createdAt',
                         type: 'timestamp',
                         default: 'now()',
                     },

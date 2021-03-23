@@ -5,7 +5,7 @@ import { User } from '../models/User';
 
 class UserController {
     async create(request: Request, response: Response) {
-        const { orgid, username, name, password } = request.body;
+        const { orgId, username, name, password } = request.body;
 
         const usersRepository = getRepository(User);
         const orgsRepository = getRepository(Organization);
@@ -21,7 +21,7 @@ class UserController {
         }
 
         const orgExist = await orgsRepository.findOne({
-            id: orgid,
+            id: orgId,
         });
 
         if (!orgExist) {
@@ -31,7 +31,7 @@ class UserController {
         }
 
         const user = usersRepository.create({
-            orgid,
+            orgId,
             username,
             name,
             password,
@@ -71,7 +71,7 @@ class UserController {
 
     async update(request: Request, response: Response) {
         const { id } = request.params;
-        const { orgid, username, name, password } = request.body;
+        const { orgId, username, name, password } = request.body;
 
         const usersRepository = getRepository(User);
 
@@ -84,7 +84,7 @@ class UserController {
         }
 
         const sameData = await usersRepository.findOne({
-            orgid,
+            orgId,
             username,
             name,
             password,
@@ -97,7 +97,7 @@ class UserController {
         }
 
         try {
-            await usersRepository.update({ id }, { orgid, username, name, password });
+            await usersRepository.update({ id }, { orgId, username, name, password });
         } catch (error) {
             console.log(error);
             return response.status(400).json({

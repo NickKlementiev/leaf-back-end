@@ -9,7 +9,7 @@ class Organization {
     name: string;
 
     @CreateDateColumn()
-    created_at: Date;
+    createdAt: Date;
 }
 
 export { Organization };
