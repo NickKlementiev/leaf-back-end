@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
-import {Organization} from '../models/Organization';
+import { Organization } from '../models/Organization';
 import { User } from '../models/User';
 
 class UserController {
@@ -26,7 +26,7 @@ class UserController {
 
         if (!orgExist) {
             return response.status(400).json({
-                error: "Organization with given ID doesn't exist!"
+                error: "Organization with given ID doesn't exist!",
             });
         }
 
@@ -97,7 +97,10 @@ class UserController {
         }
 
         try {
-            await usersRepository.update({ id }, { orgId, username, name, password });
+            await usersRepository.update(
+                { id },
+                { orgId, username, name, password }
+            );
         } catch (error) {
             console.log(error);
             return response.status(400).json({

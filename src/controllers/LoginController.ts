@@ -20,6 +20,7 @@ class LoginController {
         }
 
         if (!request.session['username']) {
+            request.session['userId'] = auth.id;
             request.session['username'] = username;
             request.session['name'] = auth.name;
             request.session['password'] = password;
