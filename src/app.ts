@@ -10,7 +10,7 @@ const sess = {
     genid: () => {
         return uuid();
     },
-    secret: 'Keep it secret',
+    secret: 'Leaf secret',
     name: 'uniqueSessionId',
     saveUninitialized: false,
     resave: false,
