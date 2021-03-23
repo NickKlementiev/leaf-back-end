@@ -53,7 +53,7 @@ class LoginController {
         }
 
         request.session.reload(() => {
-            console.log('Session reloaded!');
+            // Recarrega sessão
         });
 
         return response.status(200).json({

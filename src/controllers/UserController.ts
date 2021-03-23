@@ -1,12 +1,14 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
+import {Organization} from '../models/Organization';
 import { User } from '../models/User';
 
 class UserController {
     async create(request: Request, response: Response) {
-        const { username, name, password } = request.body;
+        const { orgid, username, name, password } = request.body;
 
         const usersRepository = getRepository(User);
+        const orgsRepository = getRepository(Organization);
 
         const userAlreadyExists = await usersRepository.findOne({
             username,
@@ -18,7 +20,18 @@ class UserController {
             });
         }
 
+        const orgExist = await orgsRepository.findOne({
+            id: orgid,
+        });
+
+        if (!orgExist) {
+            return response.status(400).json({
+                error: "Organization with given ID doesn't exist!"
+            });
+        }
+
         const user = usersRepository.create({
+            orgid,
             username,
             name,
             password,
@@ -58,7 +71,7 @@ class UserController {
 
     async update(request: Request, response: Response) {
         const { id } = request.params;
-        const { username, name, password } = request.body;
+        const { orgid, username, name, password } = request.body;
 
         const usersRepository = getRepository(User);
 
@@ -71,6 +84,7 @@ class UserController {
         }
 
         const sameData = await usersRepository.findOne({
+            orgid,
             username,
             name,
             password,
@@ -83,7 +97,7 @@ class UserController {
         }
 
         try {
-            await usersRepository.update({ id }, { username, name, password });
+            await usersRepository.update({ id }, { orgid, username, name, password });
         } catch (error) {
             console.log(error);
             return response.status(400).json({
