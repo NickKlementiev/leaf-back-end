@@ -1,0 +1,21 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocketIO Test</title>
+</head>
+<body>
+    <h1>Leaf chat test</h1>
+    <button style="background-color:darkblue;color:white;">Click me!</button>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+
+        const b = document.querySelector('button');
+        
+        b.onclick = function() {
+            socket.emit("clicked");
+        };
+    </script>
+</body>
+</html>
