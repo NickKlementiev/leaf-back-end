@@ -3,6 +3,7 @@ import express from 'express';
 import session from 'express-session';
 import { router } from './routes';
 import { v4 as uuid } from 'uuid';
+import cors from 'cors';
 import './database';
 
 const app = express();
@@ -16,6 +17,7 @@ const sess = {
     resave: false,
 };
 
+app.use(cors());
 app.use(express.json());
 app.use(session(sess));
 app.use(router);
