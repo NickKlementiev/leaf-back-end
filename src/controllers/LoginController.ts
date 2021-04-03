@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
+
 import { getRepository } from 'typeorm';
+import { Session } from '../models/Session';
 import { User } from '../models/User';
 
 class LoginController {
@@ -7,6 +9,7 @@ class LoginController {
         const { username, password } = request.body;
 
         const usersRepository = getRepository(User);
+        const sessionsRepository = getRepository(Session);
 
         const auth = await usersRepository.findOne({
             username,
@@ -19,6 +22,16 @@ class LoginController {
             });
         }
 
+        const alreadyConnected = await sessionsRepository.findOne({
+            userId: auth.id,
+        });
+
+        if (alreadyConnected) {
+            return response.status(400).send({
+                error: 'User already connected!',
+            });
+        }
+
         if (!request.session['username']) {
             request.session['userId'] = auth.id;
             request.session['username'] = username;
@@ -27,12 +40,31 @@ class LoginController {
             request.session.save();
         }
 
+        const newSession = sessionsRepository.create({
+            id: request.sessionID,
+            userId: auth.id,
+        });
+
+        await sessionsRepository.save(newSession);
+
         return response.status(201).json({
             message: 'Authentication succesful!',
         });
     }
 
     async logout(request: Request, response: Response) {
+        const sessionsRepository = getRepository(Session);
+
+        const currentSession = await sessionsRepository.findOne({
+            userId: request.session['userId'],
+        });
+
+        if (currentSession) {
+            await sessionsRepository.delete({
+                userId: currentSession.userId,
+            });
+        }
+
         if (!request.session['name']) {
             return response.status(401).json({
                 error: 'Already logged out!',
