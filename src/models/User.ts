@@ -5,11 +5,13 @@ import {
     JoinColumn,
     ManyToOne,
     PrimaryColumn,
+    Unique,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 import { Organization } from './Organization';
 
 @Entity('users')
+@Unique('uniqueUser', ['username'])
 class User {
     @PrimaryColumn()
     readonly id: string;
@@ -21,7 +23,7 @@ class User {
     @JoinColumn({ name: 'id' })
     organization: Organization;
 
-    @PrimaryColumn()
+    @Column()
     username: string;
 
     @Column()
