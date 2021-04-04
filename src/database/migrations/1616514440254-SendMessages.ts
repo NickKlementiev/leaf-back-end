@@ -31,6 +31,20 @@ export class SendMessages1616514440254 implements MigrationInterface {
                         default: 'now()',
                     },
                 ],
+                foreignKeys: [
+                    {
+                        name: 'fkSender',
+                        referencedTableName: 'users',
+                        referencedColumnNames: ['id'],
+                        columnNames: ['sender'],
+                    },
+                    {
+                        name: 'fkReceiver',
+                        referencedTableName: 'users',
+                        referencedColumnNames: ['id'],
+                        columnNames: ['receiver'],
+                    },
+                ],
             })
         );
     }

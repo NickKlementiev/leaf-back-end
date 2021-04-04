@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateUsers1616505910666 implements MigrationInterface {
+export class ActiveSessions1617405342152 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: 'users',
+                name: 'sessions',
                 columns: [
                     {
                         name: 'id',
@@ -12,22 +12,9 @@ export class CreateUsers1616505910666 implements MigrationInterface {
                         isPrimary: true,
                     },
                     {
-                        name: 'orgId',
-                        type: 'varchar',
-                        isNullable: false,
-                    },
-                    {
-                        name: 'username',
-                        type: 'varchar',
+                        name: 'userId',
+                        type: 'uuid',
                         isUnique: true,
-                    },
-                    {
-                        name: 'name',
-                        type: 'varchar',
-                    },
-                    {
-                        name: 'password',
-                        type: 'varchar',
                     },
                     {
                         name: 'createdAt',
@@ -37,10 +24,10 @@ export class CreateUsers1616505910666 implements MigrationInterface {
                 ],
                 foreignKeys: [
                     {
-                        name: 'fkOrg',
-                        referencedTableName: 'organizations',
+                        name: 'fkUser',
+                        referencedTableName: 'users',
                         referencedColumnNames: ['id'],
-                        columnNames: ['orgId'],
+                        columnNames: ['userId'],
                     },
                 ],
             })
@@ -48,6 +35,6 @@ export class CreateUsers1616505910666 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('users');
+        await queryRunner.dropTable('sessions');
     }
 }

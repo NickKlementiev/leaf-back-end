@@ -4,7 +4,10 @@ import session from 'express-session';
 import { router } from './routes';
 import { v4 as uuid } from 'uuid';
 import cors from 'cors';
-import './database';
+import { createConnection } from 'typeorm';
+import SessionManager from './services/SessionManager';
+
+createConnection().then(() => SessionManager.clean());
 
 const app = express();
 const sess = {
