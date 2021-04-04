@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Request, Response, Router } from 'express';
 import { LoginController } from './controllers/LoginController';
 import { MessageController } from './controllers/MessageController';
 import { OrganizationController } from './controllers/OrganizationController';
@@ -10,6 +10,10 @@ const userController = new UserController();
 const loginController = new LoginController();
 const orgController = new OrganizationController();
 const msgController = new MessageController();
+
+router.get('/', (request: Request, response: Response) => {
+    response.sendFile(__dirname + "/index.html");
+});
 
 router.get('/users', userController.show);
 router.post('/users', userController.create);
