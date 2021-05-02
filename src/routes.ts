@@ -1,4 +1,5 @@
 import { Request, Response, Router } from 'express';
+import {GraphicsController} from './controllers/GraphicsController';
 import { LoginController } from './controllers/LoginController';
 import { MessageController } from './controllers/MessageController';
 import { OrganizationController } from './controllers/OrganizationController';
@@ -10,6 +11,7 @@ const userController = new UserController();
 const loginController = new LoginController();
 const orgController = new OrganizationController();
 const msgController = new MessageController();
+const graphicsController = new GraphicsController();
 
 router.get('/', (request: Request, response: Response) => {
     response.sendFile(__dirname + "/index.html");
@@ -33,5 +35,7 @@ router.get('/messages', msgController.showAll);
 router.get('/messages/:id', msgController.showChat);
 router.post('/messages/:id', msgController.send);
 router.delete('/messages/:id', msgController.delete);
+
+router.get('/graphics', graphicsController.show);
 
 export { router };
