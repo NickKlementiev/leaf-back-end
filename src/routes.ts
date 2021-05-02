@@ -37,5 +37,6 @@ router.post('/messages/:id', msgController.send);
 router.delete('/messages/:id', msgController.delete);
 
 router.get('/graphics', graphicsController.show);
+router.get('/graphics/examples', graphicsController.insertExampleGraphics);
 
 export { router };
