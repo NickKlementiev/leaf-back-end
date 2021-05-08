@@ -49,7 +49,8 @@ class LoginController {
 
         return response.status(201).json({
             message: 'Authentication succesful!',
-            uniqueSessionId: request.session['id']
+            uniqueSessionId: request.session['id'],
+            name: request.session['name']
         });
     }
 
