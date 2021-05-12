@@ -27,10 +27,9 @@ io.use((socket, next) => {
 
 io.on('connection', (socket: Socket) => {
   console.log(`Socket connected, ID: ${socket.id}`);
+  const users = [];
   io.sockets.sockets['name'] = socket.name;
   io.sockets.sockets['id'] = socket.id;
-
-  const users = [];
 
   io.sockets.sockets.forEach((socket) => {
     users.push({
@@ -39,13 +38,15 @@ io.on('connection', (socket: Socket) => {
     });
   });
 
+  console.log(users);
+
   socket.emit('users', users);
 
   socket.broadcast.emit('userConnected', {
     userID: socket.id,
     name: socket.name,
   });
-  getMessages().then((messages) => socket.emit('previousMessages', messages));
+  //getMessages().then((messages) => socket.emit('previousMessages', messages));
 });
 
 httpServer.listen(3333, () => console.log('Leaf-Back-End is running!'));
