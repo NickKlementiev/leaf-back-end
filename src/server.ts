@@ -46,6 +46,13 @@ io.on('connection', (socket: Socket) => {
     userID: socket.id,
     name: socket.name,
   });
+
+  socket.on('privateMessage', ({ content, to }) => {
+    socket.to(to).emit('privateMessage', {
+      content,
+      from: socket.id,
+    });
+  });
   //getMessages().then((messages) => socket.emit('previousMessages', messages));
 });
 
