@@ -11,13 +11,13 @@ const io = require('socket.io')(httpServer, {
   },
 });
 
-async function getMessages() {
+/*async function getMessages() {
   const entityManager = getManager();
   const messages = entityManager.query(`SELECT U.name as sender, M.content
                                          FROM users AS U INNER JOIN messages AS M
                                          ON M.sender = U.id`);
   return messages;
-}
+}*/
 
 io.use((socket, next) => {
   const name = socket.handshake.auth.name;
@@ -54,7 +54,12 @@ io.on('connection', (socket: Socket) => {
       to,
     });
   });
-  //getMessages().then((messages) => socket.emit('previousMessages', messages));
+
+  socket.on('disconnect', () =>
+    socket.broadcast.emit('userDisconnected', {
+      id: socket.id,
+    })
+  );
 });
 
 httpServer.listen(3333, () => console.log('Leaf-Back-End is running!'));
