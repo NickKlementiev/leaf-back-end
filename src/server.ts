@@ -51,6 +51,7 @@ io.on('connection', (socket: Socket) => {
     socket.to(to).emit('privateMessage', {
       content,
       from: socket.id,
+      to,
     });
   });
   //getMessages().then((messages) => socket.emit('previousMessages', messages));
